@@ -1,28 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>RAMA SDA JUNIOR SCHOOL - Login</title>
+  <title>Rama Exam Login</title>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
   <script src="firebase-config.js"></script>
-  <script>
-    function login() {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-      signInWithEmailAndPassword(firebase.auth(), email, password)
-        .then((userCredential) => {
-          window.location.href = "admin-dashboard.html";
-        })
-        .catch((error) => {
-          alert("Login failed: " + error.message);
-        });
-    }
-  </script>
+  <script src="index.js" defer></script>
 </head>
 <body>
   <h2>Login</h2>
-  <input type="text" id="email" placeholder="Email"><br>
-  <input type="password" id="password" placeholder="Password"><br>
+  <input id="email" type="email" placeholder="Email"><br>
+  <input id="password" type="password" placeholder="Password"><br>
   <button onclick="login()">Login</button>
 </body>
 </html>
