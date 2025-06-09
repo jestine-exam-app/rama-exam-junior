@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Class Performance Analysis</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    canvas { margin-top: 20px; max-width: 100%; }
+  </style>
+</head>
+<body>
+  <h2>Performance Analysis</h2>
+  <canvas id="barChart" width="400" height="200"></canvas>
+
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
+  <script src="firebase-config.js"></script>
+  <script>
+    const db = firebase.firestore();
+    const subjects = {};
+    db.collection("marks").get().then(snapshot => {
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        for (let sub in data) {
+          subjects[sub] = subjects[sub] || [];
+          subjects[sub].push(Number(data[sub]));
+        }
+      });
+
+      const labels = Object.keys(subjects);
+      const averages = labels.map(sub => {
+        const vals = subjects[sub];
+        const sum = vals.reduce((a,b) => a+b, 0);
+        return (sum / vals.length).toFixed(2);
+      });
+
+      const ctx = document.getElementById('barChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Average Marks',
+            data: averages,
+            backgroundColor: 'rgba(54, 162, 235, 0.7)'
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: { beginAtZero: true, max: 100 }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
