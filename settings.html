@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>System Settings</title>
+</head>
+<body>
+  <h2>Admin Settings</h2>
+  <form onsubmit="saveSettings(event)">
+    <label>Academic Term: <input type="text" id="term" required></label><br>
+    <label>Academic Year: <input type="text" id="year" required></label><br>
+    <button type="submit">Save</button>
+  </form>
+  <p id="status"></p>
+
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
+  <script src="firebase-config.js"></script>
+  <script>
+    const db = firebase.firestore();
+    function saveSettings(e) {
+      e.preventDefault();
+      const term = document.getElementById('term').value;
+      const year = document.getElementById('year').value;
+      db.collection('settings').doc('current').set({ term, year })
+        .then(() => document.getElementById('status').innerText = 'Settings saved.')
+        .catch(err => alert('Error saving settings: ' + err.message));
+    }
+  </script>
+</body>
+</html>
