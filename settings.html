@@ -1,26 +1,42 @@
 <!DOCTYPE html>
 <html>
-<head><title>System Settings</title></head>
+<head><title>Admin Settings (Secure)</title></head>
 <body>
-  <h2>Term & Year Settings</h2>
+  <h2>System Settings (Admin Only)</h2>
   <form onsubmit="saveSettings(event)">
     <input type="text" id="term" placeholder="Term" required><br>
     <input type="text" id="year" placeholder="Year" required><br>
     <button type="submit">Save</button>
   </form>
   <p id="result"></p>
+  <button onclick="logout()">Logout</button>
 
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
   <script src="firebase-config.js"></script>
   <script>
+    const app = firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
+    const auth = firebase.auth();
+
+    auth.onAuthStateChanged(user => {
+      if (!user || !user.email.includes('admin')) {
+        alert('Access denied. Admins only.');
+        window.location.href = 'login.html';
+      }
+    });
+
+    function logout() {
+      auth.signOut().then(() => window.location.href = 'login.html');
+    }
+
     function saveSettings(e) {
       e.preventDefault();
-      const term = document.getElementById("term").value;
-      const year = document.getElementById("year").value;
-      db.collection("settings").doc("current").set({ term, year })
-        .then(() => document.getElementById("result").innerText = "Saved successfully.")
+      const term = document.getElementById('term').value;
+      const year = document.getElementById('year').value;
+      db.collection('settings').doc('current').set({ term, year })
+        .then(() => document.getElementById('result').innerText = 'Saved.')
         .catch(err => alert(err.message));
     }
   </script>

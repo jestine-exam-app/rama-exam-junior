@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head><title>Search Student</title></head>
+<body>
+  <h2>Search Student Records</h2>
+  <input type="text" id="searchInput" placeholder="Name, Grade or Assessment No">
+  <button onclick="searchStudent()">Search</button>
+  <div id="result"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
+  <script src="firebase-config.js"></script>
+  <script>
+    const db = firebase.firestore();
+    function searchStudent() {
+      const query = document.getElementById("searchInput").value.toLowerCase();
+      db.collection("students").get().then(snapshot => {
+        let html = "<ul>";
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          if (
+            doc.id.toLowerCase().includes(query) ||
+            (data.name && data.name.toLowerCase().includes(query)) ||
+            (data.grade && data.grade.toLowerCase().includes(query))
+          ) {
+            html += `<li><strong>${data.name}</strong> (${data.grade}) - ${doc.id}</li>`;
+          }
+        });
+        html += "</ul>";
+        document.getElementById("result").innerHTML = html || "No results.";
+      });
+    }
+  </script>
+</body>
+</html>
