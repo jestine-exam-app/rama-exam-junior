@@ -1,7 +1,33 @@
-<!DOCTYPE html><html><head><title>Report Card</title></head><body><h2>Student Report</h2><!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
+<!DOCTYPE html>
+<html>
+<head><title>Report Card</title></head>
+<body>
+  <h2>Student Report Card</h2>
+  <input type="text" id="assessmentSearch" placeholder="Enter Assessment No">
+  <button onclick="loadReport()">Load Report</button>
+  <div id="report"></div>
 
-<!-- Link to your config -->
-<script src="firebase-config.js"></script></body></html>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
+  <script src="firebase-config.js"></script>
+  <script>
+    const db = firebase.firestore();
+    function loadReport() {
+      const no = document.getElementById('assessmentSearch').value;
+      db.collection('marks').doc(no).get().then(doc => {
+        if (doc.exists) {
+          const data = doc.data();
+          let html = "<h3>Assessment No: " + no + "</h3><table border='1'><tr><th>Subject</th><th>Marks</th></tr>";
+          for (const [sub, val] of Object.entries(data)) {
+            html += `<tr><td>${sub}</td><td>${val}</td></tr>`;
+          }
+          html += "</table>";
+          document.getElementById("report").innerHTML = html;
+        } else {
+          document.getElementById("report").innerText = "No data found.";
+        }
+      });
+    }
+  </script>
+</body>
+</html>

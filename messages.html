@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Admin Messages</title>
-</head>
+<head><title>Messages</title></head>
 <body>
-  <h2>Send Message to Parents or Teachers</h2>
+  <h2>Send Message</h2>
   <form onsubmit="sendMessage(event)">
-    <label>To (Role or Class): <input type="text" id="to" required></label><br>
-    <label>Message:<br><textarea id="message" rows="4" cols="50" required></textarea></label><br>
-    <button type="submit">Send Message</button>
+    <input type="text" id="to" placeholder="To (e.g. Grade 9)" required><br>
+    <textarea id="message" placeholder="Message content" rows="5" cols="40" required></textarea><br>
+    <button type="submit">Send</button>
   </form>
-  <p id="status"></p>
+  <p id="feedback"></p>
 
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
+  <script src="firebase-config.js"></script>
   <script>
+    const db = firebase.firestore();
     function sendMessage(e) {
       e.preventDefault();
-      const to = document.getElementById('to').value;
-      const msg = document.getElementById('message').value;
-      document.getElementById('status').innerText = "Message sent to " + to + ": " + msg;
+      const to = document.getElementById("to").value;
+      const message = document.getElementById("message").value;
+      db.collection("messages").add({ to, message, date: new Date().toISOString() })
+        .then(() => document.getElementById("feedback").innerText = "Message sent.")
+        .catch(err => alert(err.message));
     }
   </script>
 </body>
