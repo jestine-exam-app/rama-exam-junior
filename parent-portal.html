@@ -1,32 +1,9 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Parent Portal</title>
-</head>
+<head><title>Parent Portal</title></head>
 <body>
-  <h2>Check Report by Assessment Number</h2>
-  <input type="text" id="assessmentNo" placeholder="Enter Assessment Number">
-  <button onclick="fetchReport()">Search</button>
-
-  <div id="reportResult"></div>
-
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
-  <script src="firebase-config.js"></script>
-  <script>
-    const db = firebase.firestore();
-    function fetchReport() {
-      const no = document.getElementById('assessmentNo').value;
-      const resultDiv = document.getElementById('reportResult');
-      db.collection('marks').doc(no).get().then(doc => {
-        if (doc.exists) {
-          const data = doc.data();
-          resultDiv.innerHTML = `<p><strong>${no}</strong>: ${JSON.stringify(data)}</p>`;
-        } else {
-          resultDiv.innerHTML = '<p>No report found.</p>';
-        }
-      });
-    }
-  </script>
+  <h2>Check Report</h2>
+  <input type="text" placeholder="Assessment Number"><button>Search</button>
+  <div id="result">Results appear here</div>
 </body>
 </html>

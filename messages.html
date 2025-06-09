@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head><title>Messages</title></head>
+<head>
+  <title>Admin Messages</title>
+</head>
 <body>
-  <h2>Send Messages</h2>
-  <form>
-    To: <input type="text"><br>
-    Message: <textarea></textarea><br>
-    <button type="submit">Send</button>
+  <h2>Send Message to Parents or Teachers</h2>
+  <form onsubmit="sendMessage(event)">
+    <label>To (Role or Class): <input type="text" id="to" required></label><br>
+    <label>Message:<br><textarea id="message" rows="4" cols="50" required></textarea></label><br>
+    <button type="submit">Send Message</button>
   </form>
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
+  <p id="status"></p>
 
-<!-- Link to your config -->
-<script src="firebase-config.js"></script></body>
+  <script>
+    function sendMessage(e) {
+      e.preventDefault();
+      const to = document.getElementById('to').value;
+      const msg = document.getElementById('message').value;
+      document.getElementById('status').innerText = "Message sent to " + to + ": " + msg;
+    }
+  </script>
+</body>
 </html>
