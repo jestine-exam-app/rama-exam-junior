@@ -1,5 +1,15 @@
-# RAMA Exam System
+# RAMA SDA JUNIOR SCHOOL Exam System
 
-This is the final working deployment version of the RAMA SDA JUNIOR SCHOOL Exam System, built with Firebase integration and GitHub Pages hosting support.
+This is the official exam management system for RAMA SDA JUNIOR SCHOOL.
 
-Visit: https://jestine-exam-app.github.io/rama-exam-system-/
+## Features
+- Marks Entry
+- Report Cards
+- Teacher/Admin Login
+- Printable Reports
+- Hosted on GitHub Pages
+
+---
+
+**Motto:** In God We Can
+**Location:** Cheptais, P.O. Box 45-50201
