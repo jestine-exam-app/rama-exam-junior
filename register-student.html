@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register Student</title>
+  <script type="module" src="firebase-config.js"></script>
+</head>
+<body>
+  <h2>Register a Student</h2>
+  <form id="studentForm">
+    <label>Full Name:</label>
+    <input type="text" id="studentName" required><br>
+    <label>Assessment Number:</label>
+    <input type="text" id="assessmentNo" required><br>
+    <label>Gender:</label>
+    <select id="gender" required>
+      <option value="">Select</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+    </select><br>
+    <label>Grade:</label>
+    <select id="grade" required>
+      <option value="">Select</option>
+      <option value="Grade 7">Grade 7</option>
+      <option value="Grade 8">Grade 8</option>
+      <option value="Grade 9">Grade 9</option>
+    </select><br>
+    <button type="submit">Register Student</button>
+  </form>
+  <p id="statusMsg"></p>
+  <script type="module">
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+    import { app } from './firebase-config.js';
+    const db = getDatabase(app);
+    const studentForm = document.getElementById('studentForm');
+    const statusMsg = document.getElementById('statusMsg');
+    studentForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('studentName').value;
+      const assessmentNo = document.getElementById('assessmentNo').value;
+      const gender = document.getElementById('gender').value;
+      const grade = document.getElementById('grade').value;
+      const studentRef = ref(db, 'students/' + assessmentNo);
+      set(studentRef, { name, assessmentNo, gender, grade })
+      .then(() => {
+        statusMsg.textContent = '✅ Student registered successfully!';
+        studentForm.reset();
+      })
+      .catch((error) => {
+        statusMsg.textContent = '❌ Error: ' + error.message;
+      });
+    });
+  </script>
+</body>
+</html>
