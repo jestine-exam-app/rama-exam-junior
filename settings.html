@@ -1,1 +1,14 @@
-<!DOCTYPE html><html><head><title>Settings</title></head><body><h2>Settings</h2><form><input placeholder='Term'><input placeholder='Year'><button>Save</button></form></body></html>
+
+<!DOCTYPE html>
+<html>
+<head><title>Settings</title></head>
+<body>
+  <h2>School Term Settings</h2>
+  <form onsubmit="event.preventDefault(); alert('Settings saved!');">
+    <input type="text" placeholder="Term"><br>
+    <input type="date" placeholder="Opening Date"><br>
+    <input type="date" placeholder="Closing Date"><br>
+    <button type="submit">Save Settings</button>
+  </form>
+</body>
+</html>
