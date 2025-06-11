@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rama Exam System - Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f0f2f5; padding: 40px; }
+    h1, h3 { text-align: center; }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      transition: transform 0.2s ease-in-out;
+    }
+    .card:hover { transform: translateY(-5px); }
+    .card a {
+      text-decoration: none;
+      color: #007bff;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1>RAMA SDA JUNIOR SCHOOL</h1>
+  <h3>"IN GOD WE CAN" - Exam System Dashboard</h3>
+
+  <div class="card-grid">
+    <div class="card"><a href="register.html">➕ Register Learners</a></div>
+    <div class="card"><a href="marks-entry.html">📝 Enter Subject Marks</a></div>
+    <div class="card"><a href="report-card.html">📄 Generate Report Card</a></div>
+    <div class="card"><a href="analysis.html">📊 Performance Analysis</a></div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 RAMA SDA JUNIOR SCHOOL | Exam System powered by GitHub Pages</p>
+  </footer>
+</body>
+</html>
